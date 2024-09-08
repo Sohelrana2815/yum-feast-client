@@ -1,11 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+/* eslint-disable react/no-unescaped-entities */
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   loadCaptchaEnginge,
   LoadCanvasTemplate,
-  LoadCanvasTemplateNoReload,
   validateCaptcha,
 } from "react-simple-captcha";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { Link } from "react-router-dom";
 const Login = () => {
+  const { loginUser } = useContext(AuthContext);
+
   const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
@@ -21,6 +25,10 @@ const Login = () => {
 
     const loginInfo = { email, password };
     console.log(loginInfo);
+
+    loginUser(email, password).then((result) => {
+      console.log(result.user);
+    });
   };
 
   const handleValidateCaptcha = () => {
@@ -96,6 +104,12 @@ const Login = () => {
                 className="btn btn-primary"
               />
             </div>
+            <p className="text-center">
+              Don't have an account ?{" "}
+              <Link to={"/signUp"} className="text-blue-700 font-medium ">
+                SIGN UP
+              </Link>
+            </p>
           </form>
         </div>
       </div>
