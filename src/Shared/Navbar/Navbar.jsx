@@ -1,6 +1,30 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProvider";
+import Swal from "sweetalert2";
+import { FaCartShopping } from "react-icons/fa6";
 
 const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "YES, LOGOUT",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        logout();
+        Swal.fire({
+          title: "LOGOUT SUCCESSFUL",
+          icon: "success",
+        });
+      }
+    });
+  };
   const navLinks = (
     <>
       <li>
@@ -13,7 +37,15 @@ const Navbar = () => {
         <NavLink to="/order/salad">Order Food</NavLink>
       </li>
       <li>
-        <NavLink to="/login">Login</NavLink>
+        <NavLink to="/secret">Secret</NavLink>
+      </li>
+      <li>
+        <Link to="/">
+          <button className="btn btn-sm">
+            <FaCartShopping className="text-lg text-blue-600" />
+            <div className="badge badge-secondary">+99</div>
+          </button>
+        </Link>
       </li>
     </>
   );
@@ -50,7 +82,15 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Get Started</a>
+        {user ? (
+          <button className="btn" onClick={handleLogout}>
+            Logout
+          </button>
+        ) : (
+          <Link to="/login">
+            <button className="btn">Login</button>
+          </Link>
+        )}
       </div>
     </div>
   );
