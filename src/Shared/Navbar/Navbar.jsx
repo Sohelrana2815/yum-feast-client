@@ -3,9 +3,11 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
 import { FaCartShopping } from "react-icons/fa6";
+import useCart from "../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
+  const [cart] = useCart();
 
   const handleLogout = () => {
     Swal.fire({
@@ -40,10 +42,10 @@ const Navbar = () => {
         <NavLink to="/secret">Secret</NavLink>
       </li>
       <li>
-        <Link to="/">
+        <Link to="/dashboard/cart">
           <button className="btn btn-sm">
             <FaCartShopping className="text-lg text-blue-600" />
-            <div className="badge badge-secondary">+99</div>
+            <div className="badge badge-secondary">+{cart.length}</div>
           </button>
         </Link>
       </li>
