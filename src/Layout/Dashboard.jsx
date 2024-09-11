@@ -1,13 +1,16 @@
 import { NavLink, Outlet } from "react-router-dom";
 import {
   FaCalendar,
+  FaCalendarAlt,
   FaCreditCard,
   FaHome,
   FaShoppingCart,
   FaStar,
 } from "react-icons/fa";
 import { FaBookBookmark } from "react-icons/fa6";
+import useCart from "../hooks/useCart";
 const Dashboard = () => {
+  const [cart] = useCart();
   return (
     <div className="flex ">
       {/* Dashboard sidebar */}
@@ -21,24 +24,30 @@ const Dashboard = () => {
           </li>
           <li>
             <NavLink className="py-3" to="/dashboard/reservation">
+              <FaCalendarAlt />
+              Reservation
+            </NavLink>
+          </li>
+          <li>
+            <NavLink className="py-3" to="/dashboard/payment">
               <FaCreditCard />
               PAYMENT HISTORY
             </NavLink>
           </li>
           <li>
-            <NavLink className="py-3" to="/dashboard/paymentHistory">
+            <NavLink className="py-3" to="/dashboard/cart">
               <FaShoppingCart />
-              MY CART
+              MY CART ({cart.length})
             </NavLink>
           </li>
           <li>
-            <NavLink className="py-3" to="/dashboard/cart">
+            <NavLink className="py-3" to="/dashboard/review">
               <FaStar />
               add review
             </NavLink>
           </li>
           <li>
-            <NavLink className="py-3" to="/dashboard/myBooking">
+            <NavLink className="py-3" to="/dashboard/booking">
               <FaCalendar />
               my booking
             </NavLink>
