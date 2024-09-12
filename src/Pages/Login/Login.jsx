@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import Swal from "sweetalert2";
-
 import { useContext, useEffect, useState } from "react";
 import {
   loadCaptchaEnginge,
@@ -10,6 +9,7 @@ import {
 import { AuthContext } from "../../Providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { loginUser } = useContext(AuthContext);
@@ -146,6 +146,7 @@ const Login = () => {
                 SIGN UP
               </Link>
             </p>
+            <SocialLogin />
           </form>
         </div>
       </div>

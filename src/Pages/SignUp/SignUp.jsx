@@ -2,10 +2,13 @@ import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AuthContext } from "../../Providers/AuthProvider";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const SignUp = () => {
   const { createUser, updateCurrentUserProfile } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -27,14 +30,23 @@ const SignUp = () => {
       console.log(signUpUser);
       updateCurrentUserProfile(data.name, data.photoURL)
         .then(() => {
-          console.log("Update user profile");
-          reset();
-          Swal.fire({
-            icon: "success",
-            title: "NEW USER CREATED SUCCESSFULLY!",
-            text: "Welcome back!",
-            showConfirmButton: false,
-            timer: 1500,
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("Send user info to the database", userInfo);
+              reset();
+              Swal.fire({
+                icon: "success",
+                title: "NEW USER CREATED SUCCESSFULLY!",
+                text: "Welcome back!",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              navigate("/");
+            }
           });
         })
         .catch((error) => {
