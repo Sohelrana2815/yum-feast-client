@@ -33,7 +33,7 @@ const FoodCard = ({ item }) => {
             icon: "success",
             title: `${name} Added to your cart!`,
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
           });
           // refetch cart to update cart items
           refetch();
