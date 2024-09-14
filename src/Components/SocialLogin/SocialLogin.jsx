@@ -22,7 +22,7 @@ const SocialLogin = () => {
           console.log(res.data);
 
           navigate("/");
-        }); 
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -32,8 +32,8 @@ const SocialLogin = () => {
     <div className="text-center flex flex-col justify-center items-center font-medium">
       <p>-------OR-------</p>
       <p>
-        <button onClick={handleGoogleSignIn} className="btn ">
-          <FcGoogle className=" text-lg" />
+        <button onClick={handleGoogleSignIn} className="btn bg-black  w-80">
+          <FcGoogle className=" text-2xl" />
         </button>
       </p>
     </div>

@@ -13,9 +13,10 @@ import {
 } from "react-icons/fa";
 import { FaBookBookmark } from "react-icons/fa6";
 import useCart from "../hooks/useCart";
+import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
   const [cart] = useCart();
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
   return (
     <div className="flex ">
       {/* Dashboard sidebar */}
@@ -89,7 +90,7 @@ const Dashboard = () => {
               <li>
                 <NavLink className="py-3" to="/dashboard/review">
                   <FaStar />
-                  add review
+                  ADD REVIEW
                 </NavLink>
               </li>
               <li>
