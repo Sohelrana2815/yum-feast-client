@@ -48,6 +48,7 @@ const Dashboard = () => {
                   MANAGE BOOKINGS
                 </NavLink>
               </li>
+
               <li>
                 <NavLink className="py-3" to="/dashboard/allUsers">
                   <FaUsers className="text-lg" />

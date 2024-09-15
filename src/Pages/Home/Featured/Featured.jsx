@@ -7,7 +7,7 @@ const Featured = () => {
       {/* Ensure the SectionTitle is above the overlay */}
       <div className="relative z-10">
         <SectionTitle
-          subHeading={"---Check it out---"}
+          subHeading={"Check it out"}
           heading={"FROM OUR MENU"}
         />
       </div>

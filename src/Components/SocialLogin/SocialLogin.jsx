@@ -30,7 +30,7 @@ const SocialLogin = () => {
   };
   return (
     <div className="text-center flex flex-col justify-center items-center font-medium">
-      <p>-------OR-------</p>
+      <p>-OR-</p>
       <p>
         <button onClick={handleGoogleSignIn} className="btn bg-black  w-80">
           <FcGoogle className=" text-2xl" />

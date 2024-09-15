@@ -9,7 +9,7 @@ const MenuItem = ({ item }) => {
         alt={name}
       />
       <div className="flex-1 md:ml-4">
-        <h3 className="uppercase text-xl font-normal">{name}--------</h3>
+        <h3 className="uppercase text-xl font-normal">{name}--</h3>
         <p className="text-base font-normal">{recipe}</p>
       </div>
       <p className="text-[#bb8405] text-lg md:text-base">{price}</p>

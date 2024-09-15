@@ -1,12 +1,14 @@
-import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router-dom";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import Swal from "sweetalert2";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-const AddItems = () => {
+const UpdateItem = () => {
+  const { name, category, price, recipe, _id } = useLoaderData();
   const {
     handleSubmit,
     register,
@@ -36,14 +38,14 @@ const AddItems = () => {
         image: res.data.data.display_url,
       };
 
-      const menuRes = await axiosSecure.post("/menus", menuItem);
-      if (menuRes.data.insertedId) {
+      const menuRes = await axiosSecure.patch(`/menus/${_id}`, menuItem);
+      if (menuRes.data.modifiedCount > 0) {
         // show sweet alert or popup
-        reset();
+        // reset();
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: `${data.name} has been added successfully`,
+          title: `${data.name} has been Updated successfully`,
           showConfirmButton: false,
           timer: 1500,
         });
@@ -63,6 +65,7 @@ const AddItems = () => {
         >
           <div className="form-control">
             <input
+              defaultValue={name}
               type="text"
               {...register("name")}
               placeholder="Recipe name"
@@ -76,7 +79,7 @@ const AddItems = () => {
             <div className="form-control">
               <select
                 {...register("category")}
-                defaultValue="default"
+                defaultValue={category}
                 className="select w-full"
               >
                 <option value="default" disabled>
@@ -93,6 +96,7 @@ const AddItems = () => {
             <div className="form-control">
               <input
                 {...register("price")}
+                defaultValue={price}
                 type="number"
                 step="0.01"
                 min="0"
@@ -105,11 +109,17 @@ const AddItems = () => {
 
           <textarea
             {...register("recipe")}
+            defaultValue={recipe}
             className="textarea h-64"
             placeholder="Recipe Details"
           ></textarea>
           <div className=" space-y-5">
-            <input type="file" {...register("image")} className="file-input" />
+            <input
+              type="file"
+              // defaultValue={image}
+              {...register("image")}
+              className="file-input"
+            />
             <br />
             <input type="submit" className="btn btn-primary" />
           </div>
@@ -119,4 +129,4 @@ const AddItems = () => {
   );
 };
 
-export default AddItems;
+export default UpdateItem;
